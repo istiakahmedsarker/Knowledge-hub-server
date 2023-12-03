@@ -56,7 +56,17 @@ async function run() {
             res.send(result);
         });
 
-
+        app.put("/updateAssignment/:id", async (req, res) => {
+            const id = req.params.id;
+            const updatedAssignment = req.body;
+            const result = await assignmentCollection.updateOne(
+                { _id: new ObjectId(id) },
+                { $set: updatedAssignment },
+                { upsert: true }
+            );
+            res.send({ result });
+        });
+        
         app.delete("/deleteAssignment/:id", async (req, res) => {
             const id = req.params.id;
             const result = await assignmentCollection.deleteOne({ _id: new ObjectId(id) });
