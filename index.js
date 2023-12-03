@@ -90,8 +90,6 @@ async function run() {
             res.send(result);
         });
 
-        // Send a ping to confirm a successful connection
-        // await client.db("admin").command({ ping: 1 });
         // console.log("Pinged your deployment. You successfully connected to MongoDB!");
     } finally {
         // Ensures that the client will close when you finish/error
@@ -101,9 +99,9 @@ run().catch(console.dir);
 
 
 app.get('/', (req, res) => {
-    res.send('yoyo is running')
+    res.send('OGS server is running')
 })
 
 app.listen(port, () => {
-    console.log(`Building management  is sitting on port ${port}`);
+    console.log(`OGS  is sitting on port ${port}`);
 })
