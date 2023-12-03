@@ -50,6 +50,12 @@ async function run() {
             res.send(result);
         });
 
+        app.get("/getAssignmentsByEmail/:email", async (req, res) => {
+            const email = req.params.email;
+            const result = await submittedAssignmentCollection.find({ email: email }).toArray();
+            res.send(result);
+            });
+
         app.post("/createAssignment", async (req, res) => {
             const assignment = req.body;
             const result = await assignmentCollection.insertOne(assignment);
@@ -59,9 +65,20 @@ async function run() {
         app.put("/updateAssignment/:id", async (req, res) => {
             const id = req.params.id;
             const updatedAssignment = req.body;
-            const result = await assignmentCollection.updateOne(
+            const result = await submittedAssignmentCollection.updateOne(
                 { _id: new ObjectId(id) },
                 { $set: updatedAssignment },
+                { upsert: true }
+            );
+            res.send({ result });
+        });
+
+        app.put("/updateMarkedAssignment/:id", async (req, res) => {
+            const id = req.params.id;
+            const data  = req.body;
+            const result = await submittedAssignmentCollection.updateOne(
+                { _id: new ObjectId(id) },
+                { $set: data  },
                 { upsert: true }
             );
             res.send({ result });
