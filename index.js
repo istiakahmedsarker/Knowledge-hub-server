@@ -39,6 +39,10 @@ async function run() {
             const result = await assignmentCollection.find({ _id: new ObjectId(id) }).toArray();
             res.send(result);
         });
+        app.get("/getSubmittedAssignments", async (req, res) => {
+            const result = await submittedAssignmentCollection.find().toArray();
+            res.send(result);
+        });
 
         app.post("/createAssignment", async (req, res) => {
             const assignment = req.body;
