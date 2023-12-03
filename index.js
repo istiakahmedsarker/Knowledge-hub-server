@@ -40,6 +40,11 @@ async function run() {
             res.send(result);
         });
 
+        app.post("/createAssignment", async (req, res) => {
+            const assignment = req.body;
+            const result = await assignmentCollection.insertOne(assignment);
+            res.send(result);
+        });
         
 
         app.delete("/deleteAssignment/:id", async (req, res) => {
